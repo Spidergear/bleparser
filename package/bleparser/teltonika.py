@@ -7,8 +7,9 @@ _LOGGER = logging.getLogger(__name__)
 
 def parse_teltonika(self, data, complete_local_name, source_mac, rssi):
     result = {"firmware": "Teltonika"}
+    result = {"name": complete_local_name}
     teltonika_mac = source_mac
-    print(data.hex())
+    #print(data.hex())
     if complete_local_name == "PUCK_T1":
         device_type = "Blue Puck T"
     elif complete_local_name == "PUCK_TH":
@@ -41,7 +42,7 @@ def parse_teltonika(self, data, complete_local_name, source_mac, rssi):
         data_size -= packet_size
         packet_start += packet_size
 
-    if device_type is None:
+    if device_type == "2":
         if self.report_unknown == "Teltonika":
             _LOGGER.info(
                 "BLE ADV from UNKNOWN Teltonika DEVICE: RSSI: %s, MAC: %s, DEVICE TYPE: %s, ADV: %s",
